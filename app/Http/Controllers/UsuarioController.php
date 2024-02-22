@@ -31,7 +31,11 @@ class UsuarioController extends Controller
 
     public function autenticarView(Request $request)
     {
-        return view("usuario.autenticacao");
+        if(session("id_usuario")){
+            return view("usuario.pagina_inicial");
+        }else{
+            return view("usuario.autenticacao");
+        }
     }
 
     public function autenticarUsuario(Request $request)
