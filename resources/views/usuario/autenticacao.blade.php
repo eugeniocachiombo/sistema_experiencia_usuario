@@ -1,12 +1,20 @@
 <title>Autenticação</title>
 @include('usuario.inclusao.cabecalho')
-
-@if(session("notificacao"))
-    {{ session("notificacao") }} <br>
-    Tentativas Restantes: {{ session("tentativa_login") }}
+@include('usuario.inclusao.navbar_inicio')
+@if (session('notificacao'))
+    
+    <script>
+            Swal.fire({
+                icon: "error",
+                title: "Erro!",
+                text: "Usuario não encontrado",
+                footer: '<a href="#">Why do I have this issue?</a>'
+            });
+    </script>
+    <p style="background: green; color: white; padding: 5px">Tentativas Restantes: {{ session('tentativa_login') }}</p>
 @endif
 
-<main >
+<main>
     @include('usuario.formularios.from_autenticacao')
 </main>
 

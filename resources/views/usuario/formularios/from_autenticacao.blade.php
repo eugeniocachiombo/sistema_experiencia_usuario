@@ -30,4 +30,4 @@
     </form>
 </div>
 
-<script src="/public/assets/js/bootstrap_validacao.js"></script>
+<script src="../assets/js/bootstrap_validacao.js"></script>

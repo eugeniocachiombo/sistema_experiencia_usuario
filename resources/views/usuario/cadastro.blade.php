@@ -1,5 +1,6 @@
 <title>Cadastro</title>
 @include('usuario.inclusao.cabecalho')
+@include('usuario.inclusao.navbar_inicio')
 
 @if(session("notificacao"))
     <script>
