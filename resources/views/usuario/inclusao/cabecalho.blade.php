@@ -15,11 +15,11 @@
 
     <header>
         <div class="container" style="min-height: inherit">
-            <div class="col d-flex justify-content-center align-items-center" style="min-height: inherit">
-                <div class="d-table row">
+            <div class="col p-4 d-flex justify-content-center align-items-center" style="min-height: inherit">
+                <div class="d-table ">
                     <i class="fas fa-users text-center" style="font-size: 70px"></i> 
                 
-                    <h3><b>Sistema de Análise de Comportamento do Usuário</b></h3> 
+                    <b>Sistema de Análise de Comportamento do Usuário</b>
                 </div>
             </div>
         </div>

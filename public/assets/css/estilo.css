@@ -26,14 +26,14 @@ footer{
 
 .select{
     /*background-color: rgb(5, 83, 128);*/
-    background-color: rgb(185, 209, 221);
-    color: yellow;
+    background-color: white;
+    color: dodgerblue;
     cursor: pointer;
 }
 
 .select option{
-    background-color: crimson;
-    color: yellow;
+    background-color: dodgerblue;
+    color: white;
 }
 
 input[type="text"]{
