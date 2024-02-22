@@ -22,12 +22,6 @@ create table dispositivo (
     foreign key (id_usuario) references usuario(id_usuario) on delete cascade
 );
 
-create table usuarios_logados (
-    id_usuarios_logados int primary key auto_increment not null,
-    id_usuario int,
-    foreign key (id_usuario) references usuario(id_usuario) on delete cascade
-);
-
 create table ataque ( 
     id_ataque int primary key auto_increment not null,
     nome_dispositivo varchar(20),

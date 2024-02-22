@@ -11,7 +11,7 @@ class Dispositivo extends Model
 
     protected $table = "dispositivo";
     protected $fillable = [
-        "id_dispositivo",
+        "id",
         "nome_dispositivo",
         "hora_conexao",
         "data_conexao",

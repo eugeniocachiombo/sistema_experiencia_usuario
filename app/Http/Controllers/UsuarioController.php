@@ -33,17 +33,30 @@ class UsuarioController extends Controller
     public function autenticarUsuario(Request $request)
     {
         if (session("tentativa_login") != 1) {
-            $usuario = Usuario::where("email_usuario", "=", $request->email_usuario)->first();
-            if ($usuario && Hash::check($request->senha_usuario, $usuario->senha_usuario)) {
+            $usuario = $this->verificarEmailUsuario();
+            $existencia_usuario = $this->verificarExistenciaUsuario($usuario); 
+            if ($existencia_usuario) {
                 return view("usuario.pagina_inicial");
             } else {
-                $valor_sessao = session("tentativa_login");
-                session()->put("tentativa_login", $valor_sessao + 1);
-                setcookie("tentativa_login", 1, 60);
+                $this->criarSessaoContadoraTentativas();
                 return redirect('/usuario/autenticacao')->with('notificacao', "Usuario não encontrado");
             }
         } else {
-            return "Excedeu o número máximo de tentativas, não é permitido acessar o sistema mais de 2 vezes ";
+            return view("usuario.excessao_tentativas");
         }
+    }
+
+    public function verificarEmailUsuario(){
+        return Usuario::where("email_usuario", "=", $request->email_usuario)->first();
+    }
+
+    public function verificarExistenciaUsuario($usuario){
+        return $usuario && Hash::check($request->senha_usuario, $usuario->senha_usuario);
+    }
+
+    public function criarSessaoContadoraTentativas(){
+        $valor_sessao = session("tentativa_login");
+        session()->put("tentativa_login", $valor_sessao + 1);
+        setcookie("tentativa_login", 1, 60);
     }
 }

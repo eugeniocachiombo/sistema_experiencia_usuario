@@ -11,7 +11,7 @@ class Ataque extends Model
 
     protected $table = "ataque";
     protected $fillable = [
-        "id_ataque",
+        "id",
         "nome_dispositivo",
         "navegador",
         "plataforma",
