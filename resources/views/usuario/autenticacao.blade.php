@@ -1,8 +1,8 @@
 <title>Autenticação</title>
 @include('usuario.inclusao.cabecalho')
 @include('usuario.inclusao.navbar_inicio')
+
 @if (session('notificacao'))
-    
     <script>
             Swal.fire({
                 icon: "error",
