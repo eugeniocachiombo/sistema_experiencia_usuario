@@ -3,7 +3,7 @@
 @include('usuario.inclusao.navbar_usuario_logado')
 
 <main>
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: inherit">
+    <div class="container p-5 d-flex justify-content-center align-items-center" style="min-height: inherit">
         <div class="">
             <div class="col d-flex justify-content-center">
                 <i class="fas fa-shield-alt" style="font-size: 200px; color: green"></i>
@@ -19,6 +19,10 @@
                     Femenino
                 @endif <br>
                 <b>Email:</b> {{ session("email_usuario") }} <br>
+                <b>Total de ataques: </b> <span style="color: red">1</span> <br>
+                <b>Dispositivo: </b>  <span style="color: green">{{session("dispositivo_query")}}</span> <br>
+                <b>Navegador: </b> <span style="color: dodgerblue">{{session("navegador_query")}}</span> <br>
+                <b>Plataforma: </b> <span style="color: redodgerblued">{{session("plataforma_query")}}</span> <br>
             </div>
         </div>
     </div>

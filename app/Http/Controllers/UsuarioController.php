@@ -8,6 +8,7 @@ use App\Http\Controllers\AtaqueController;
 use App\Http\Controllers\DispositivoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Jenssegers\Agent\Agent;
 
 class UsuarioController extends Controller
 {
@@ -56,16 +57,43 @@ class UsuarioController extends Controller
     public function verficarDispositivo($usuario)
     {
         $dispositvo = DispositivoController::buscarDispositivo($usuario);
+        
         if ($dispositvo) {
-            if ($usuario) {
+            $agent = new Agent();
+            $nome_dispositivo = $agent->device();
+            $nome_navegador = $agent->browser();
+            $nome_plataforma = $agent->platform();
+
+            $dispositivo_actual = $nome_dispositivo;
+            $navegador_actual = $nome_navegador . " " . $agent->version($nome_navegador);
+            $plataforma_actual = $nome_plataforma . " " . $agent->version($nome_plataforma);
+            $id_usuario_actual = $usuario->id;
+
+            $dispositvo = DispositivoController::buscarDispositivo($usuario);
+            $dispositivo_query = $dispositvo->nome_dispositivo;
+            $navegador_query = $dispositvo->navegador;
+            $plataforma_query = $dispositvo->plataforma;
+            $id_usuario_query = $dispositvo->id_usuario;
+
+            if(
+            $dispositivo_actual == $dispositivo_query 
+            && $navegador_actual == $navegador_query 
+            && $plataforma_actual == $plataforma_query
+            && $id_usuario_actual == $id_usuario_query){
+                session()->put("nome_usuario",  $usuario->nome_usuario);
+                session()->put("genero_usuario", $usuario->genero_usuario);
+                session()->put("email_usuario", $usuario->email_usuario);
+                session()->put("dispositivo_query", $dispositivo_query);
+                session()->put("navegador_query",   $navegador_query);
+                session()->put("plataforma_query", $plataforma_query);
+                return view("usuario.pagina_inicial");
+            }else{
                 AtaqueController::registrarAtaque($usuario);
+                return view("usuario.limite_sessoes");
             }
-            return view("usuario.limite_sessoes");
+            
         } else {
-            if ($usuario) {
-                DispositivoController::registrarDispositivo($usuario);
-            }
-             
+            DispositivoController::registrarDispositivo($usuario);
             session()->put("nome_usuario", $usuario->nome_usuario);
             session()->put("genero_usuario",$usuario->genero_usuario);
             session()->put("email_usuario",$usuario->email_usuario);
