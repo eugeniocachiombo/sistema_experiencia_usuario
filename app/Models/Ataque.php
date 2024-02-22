@@ -16,8 +16,6 @@ class Ataque extends Model
         "navegador",
         "plataforma",
         "localizacao",
-        "hora_ataque",
-        "data_ataque",
-        "descricao_ataque",
+        "id_usuario"
     ];
 }

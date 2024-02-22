@@ -60,11 +60,15 @@ class UsuarioController extends Controller
         return $usuario && Hash::check($request->senha_usuario, $usuario->senha_usuario);
     }
 
-    public function criarSessaoContadoraTentativas()
+    public function criarSessaoContadoraTentativas(Request $request)
     {
         $valor_sessao = session("tentativa_login");
         session()->put("tentativa_login", $valor_sessao + 1);
         setcookie("tentativa_login", 1, 60);
+        $usuario = $this->verificarEmailUsuario($request);
+        if($usuario){
+            echo "registrar ataque";
+        }
         return redirect('/usuario/autenticacao')->with('notificacao', "Usuario não encontrado");
     }
 }

@@ -28,8 +28,8 @@ create table ataque (
     navegador varchar(20),
     plataforma varchar(20),
     localizacao varchar(20),
-    hora_ataque time,
-    data_ataque date,
-    descricao_ataque text
+    id_usuario int,
+    foreign key (id_usuario) references usuario(id_usuario) on delete cascade
+
 );
 
