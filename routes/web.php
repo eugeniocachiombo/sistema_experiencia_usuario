@@ -1,19 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\AtaqueController;
+use App\Http\Controllers\DispositivoController;
+use App\Http\Controllers\UsuariosLogadosController;
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+Route::get('/usuario/cadastro', [UsuarioController::class, "cadastrarView"]);
+Route::post('/usuario/cadastro', [UsuarioController::class, "cadastrarUsuario"]);
 
-Route::get("/", [UserController::class, "Index"]);
-Route::get('/teste/{name}&{age}', [UserController::class, "MyProfile"])
-->where("name", "[A-Za-z]*")
-->where("age", "[0-9]*");
-Route::get("/teste/name/{name}", [UserController::class, "MyName"])
-->where("name", "[A-Za-z]*");
-Route::get("/teste/age/{age}", [UserController::class, "MyAge"])
-->where("age", "[0-9]*");
 
 
