@@ -86,6 +86,7 @@ class UsuarioController extends Controller
                 session()->put("dispositivo_query", $dispositivo_query);
                 session()->put("navegador_query",   $navegador_query);
                 session()->put("plataforma_query", $plataforma_query);
+                setcookie("usuario_logado", "usuario_logado", 120);
                 return view("usuario.pagina_inicial");
             }else{
                 AtaqueController::registrarAtaque($usuario);

@@ -24,6 +24,13 @@
                 <b>Navegador: </b> <span style="color: dodgerblue">{{session("navegador_query")}}</span> <br>
                 <b>Plataforma: </b> <span style="color: redodgerblued">{{session("plataforma_query")}}</span> <br>
             </div>
+            <div class="col">
+                <form action="" method="get">
+                    <button class="form-control bg-danger text-white" type="submit">
+                        Terminar Sessão
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </main>
