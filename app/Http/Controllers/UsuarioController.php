@@ -97,11 +97,27 @@ class UsuarioController extends Controller
             }
 
         } else {
+            $agent = new Agent();
+            $nome_dispositivo = $agent->device();
+            $nome_navegador = $agent->browser();
+            $nome_plataforma = $agent->platform();
+
+            $dispositivo_actual = $nome_dispositivo;
+            $navegador_actual = $nome_navegador . " " . $agent->version($nome_navegador);
+            $plataforma_actual = $nome_plataforma . " " . $agent->version($nome_plataforma);
+            
             DispositivoController::registrarDispositivo($usuario);
+            $dispositvo = DispositivoController::buscarDispositivo($usuario);
+            $id_dispositivo_query = $dispositvo->id;
             session()->put("id_usuario", $usuario->id);
             session()->put("nome_usuario", $usuario->nome_usuario);
             session()->put("genero_usuario", $usuario->genero_usuario);
             session()->put("email_usuario", $usuario->email_usuario);
+            session()->put("id_dispositivo_query", $id_dispositivo_query);
+            session()->put("dispositivo_query", $dispositivo_actual);
+            session()->put("navegador_query", $navegador_actual);
+            session()->put("plataforma_query", $plataforma_actual);
+            setcookie("usuario_logado", "usuario_logado", 120);
             return view("usuario.pagina_inicial");
         }
     }
@@ -135,7 +151,6 @@ class UsuarioController extends Controller
         Session::forget("usuario_logado");
         Session::forget("tentativa_login");
         Session::flush();
-        //return view("usuario.autenticacao");
-        return response()->json($id_dispositivo);
+        return redirect('/usuario/autenticacao');
     }
 }

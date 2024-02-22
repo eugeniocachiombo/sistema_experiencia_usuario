@@ -24,21 +24,17 @@ class DispositivoController extends Controller
         ];
         $dispositivo = Dispositivo::create($dados_dispositivo);
         return $dispositivo;
-        //return response()->json($dispositivo);
     }
 
     public function buscarDispositivo($usuario)
     {
-        $dispositivo = Dispositivo::where("id_usuario", "=", $usuario->id)
-        ->first();
+        $dispositivo = Dispositivo::where("id_usuario", "=", $usuario->id)->first();
         return $dispositivo;
-        //return response()->json($dispositivo);
     }
 
     public function eliminarDispositivo($id_dispositivo)
     {
         $dispositivo = Dispositivo::find($id_dispositivo);
         return $dispositivo->delete();
-        //return response()->json($dispositivo);
     }
 }
