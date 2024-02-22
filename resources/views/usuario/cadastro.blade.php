@@ -1,3 +1,4 @@
+<title>Cadastro</title>
 @include('usuario.inclusao.cabecalho')
 
 @if(session("notificacao"))

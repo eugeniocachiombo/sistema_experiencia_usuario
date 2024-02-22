@@ -25,3 +25,4 @@
             </div>
         </div>
     </header>
+    @include('usuario.inclusao.navbar_inicio')
