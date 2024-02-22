@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
-use App\Models\Dispositivo;
 use App\Http\Controllers\AtaqueController;
 use App\Http\Controllers\DispositivoController;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Jenssegers\Agent\Agent;
 
 class UsuarioController extends Controller
@@ -57,7 +57,7 @@ class UsuarioController extends Controller
     public function verficarDispositivo($usuario)
     {
         $dispositvo = DispositivoController::buscarDispositivo($usuario);
-        
+
         if ($dispositvo) {
             $agent = new Agent();
             $nome_dispositivo = $agent->device();
@@ -70,34 +70,38 @@ class UsuarioController extends Controller
             $id_usuario_actual = $usuario->id;
 
             $dispositvo = DispositivoController::buscarDispositivo($usuario);
+            $id_dispositivo_query = $dispositvo->id;
             $dispositivo_query = $dispositvo->nome_dispositivo;
             $navegador_query = $dispositvo->navegador;
             $plataforma_query = $dispositvo->plataforma;
             $id_usuario_query = $dispositvo->id_usuario;
 
-            if(
-            $dispositivo_actual == $dispositivo_query 
-            && $navegador_actual == $navegador_query 
-            && $plataforma_actual == $plataforma_query
-            && $id_usuario_actual == $id_usuario_query){
-                session()->put("nome_usuario",  $usuario->nome_usuario);
+            if (
+                $dispositivo_actual == $dispositivo_query
+                && $navegador_actual == $navegador_query
+                && $plataforma_actual == $plataforma_query
+                && $id_usuario_actual == $id_usuario_query) {
+                session()->put("id_usuario", $usuario->id);
+                session()->put("nome_usuario", $usuario->nome_usuario);
                 session()->put("genero_usuario", $usuario->genero_usuario);
                 session()->put("email_usuario", $usuario->email_usuario);
+                session()->put("id_dispositivo_query", $id_dispositivo_query);
                 session()->put("dispositivo_query", $dispositivo_query);
-                session()->put("navegador_query",   $navegador_query);
+                session()->put("navegador_query", $navegador_query);
                 session()->put("plataforma_query", $plataforma_query);
                 setcookie("usuario_logado", "usuario_logado", 120);
                 return view("usuario.pagina_inicial");
-            }else{
+            } else {
                 AtaqueController::registrarAtaque($usuario);
                 return view("usuario.limite_sessoes");
             }
-            
+
         } else {
             DispositivoController::registrarDispositivo($usuario);
+            session()->put("id_usuario", $usuario->id);
             session()->put("nome_usuario", $usuario->nome_usuario);
-            session()->put("genero_usuario",$usuario->genero_usuario);
-            session()->put("email_usuario",$usuario->email_usuario);
+            session()->put("genero_usuario", $usuario->genero_usuario);
+            session()->put("email_usuario", $usuario->email_usuario);
             return view("usuario.pagina_inicial");
         }
     }
@@ -122,5 +126,16 @@ class UsuarioController extends Controller
             AtaqueController::registrarAtaque($usuario);
         }
         return redirect('/usuario/autenticacao')->with('notificacao', "Usuario não encontrado");
+    }
+
+    public function terminarSessao()
+    {
+        $id_dispositivo = session("id_dispositivo_query");
+        DispositivoController::eliminarDispositivo($id_dispositivo);
+        Session::forget("usuario_logado");
+        Session::forget("tentativa_login");
+        Session::flush();
+        //return view("usuario.autenticacao");
+        return response()->json($id_dispositivo);
     }
 }
