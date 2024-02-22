@@ -1,4 +1,4 @@
-<div class="container d-flex justify-content-center align-items-center" style="min-height: inherit; ">
+<div class="container d-flex justify-content-center align-items-center" style=" ">
     <form class="needs-validation p-4" style="min-height: inherit;" action="/usuario/cadastro" method="post">
         @csrf
         <h1>Cadastrar</h1>

@@ -1,7 +1,13 @@
 @include('usuario.inclusao.cabecalho')
 
 @if(session("notificacao"))
-    {{ session("notificacao") }}
+    <script>
+        Swal.fire(
+            'Sucesso!',
+            'Cadastrado com sucesso!',
+            'success'
+        )
+    </script>
 @endif
 
 <main>

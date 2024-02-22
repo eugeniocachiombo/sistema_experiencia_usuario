@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../../assets/css/estilo.css">
     <script src="../../assets/bootstrap/js/bootstrap.js"></script>
     <script src="../../assets/jquery/jquery.js"></script>
+    <script src="../../assets/js/alerta.js"></script>
 </head>
 <body>
 
