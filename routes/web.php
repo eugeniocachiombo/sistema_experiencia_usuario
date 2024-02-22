@@ -9,7 +9,6 @@ Route::get('/usuario/cadastro', [UsuarioController::class, "cadastrarView"]);
 Route::post('/usuario/cadastro', [UsuarioController::class, "cadastrarUsuario"]);
 Route::get('/usuario/autenticacao', [UsuarioController::class, "autenticarView"]);
 Route::post('/usuario/autenticacao', [UsuarioController::class, "autenticarUsuario"]);
-Route::get('/ataque/registrar', [AtaqueController::class, "registrarAtaque"]);
 
-
+Route::get('/dispositivo', [DispositivoController::class, "buscarDispositivo"]);
 

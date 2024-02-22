@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuario;
+use App\Models\Dispositivo;
+use App\Http\Controllers\AtaqueController;
+use App\Http\Controllers\DispositivoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\AtaqueController;
 
 class UsuarioController extends Controller
 {
@@ -43,11 +45,24 @@ class UsuarioController extends Controller
     public function validarAutenticacaoUsuario(Request $request)
     {
         $usuario = $this->verificarEmailUsuario($request);
-        $existencia_usuario = $this->verificarExistenciaUsuario($usuario, $request);
-        if ($existencia_usuario) {
-            return view("usuario.pagina_inicial");
+        $usuario_encontrado = $this->verificarExistenciaUsuario($usuario, $request);
+        if ($usuario_encontrado) {
+            return $this->verficarDispositivo($usuario);
         } else {
             return $this->criarSessaoContadoraTentativas($request);
+        }
+    }
+
+    public function verficarDispositivo($usuario)
+    {
+        $dispositvo = DispositivoController::buscarDispositivo($usuario);
+        if ($dispositvo) {
+            return "Esta sessao já foi iniciada só é permitido um utilizador na sessão";
+        } else {
+            if ($usuario) {
+                DispositivoController::registrarDispositivo($usuario);
+            }
+            return view("usuario.pagina_inicial");
         }
     }
 
@@ -67,7 +82,7 @@ class UsuarioController extends Controller
         session()->put("tentativa_login", $valor_sessao + 1);
         setcookie("tentativa_login", 1, 60);
         $usuario = $this->verificarEmailUsuario($request);
-        if($usuario){
+        if ($usuario) {
             AtaqueController::registrarAtaque($usuario);
         }
         return redirect('/usuario/autenticacao')->with('notificacao', "Usuario não encontrado");
