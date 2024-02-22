@@ -8,7 +8,7 @@
                 icon: "error",
                 title: "Erro!",
                 text: "Usuario não encontrado",
-                footer: '<a href="#">Why do I have this issue?</a>'
+                footer: '<a href="#">Verifique se os dados form introduzidos correctamente</a>'
             });
     </script>
     <p style="background: green; color: white; padding: 5px">Tentativas Restantes: {{ session('tentativa_login') }}</p>
