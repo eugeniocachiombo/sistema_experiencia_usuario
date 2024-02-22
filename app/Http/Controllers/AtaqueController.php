@@ -7,7 +7,7 @@ use Jenssegers\Agent\Agent;
 
 class AtaqueController extends Controller
 {
-    public function registrarAtaque()
+    public function registrarAtaque($usuario)
     {
         $agent = new Agent();
         $dados_ataque = [
@@ -15,9 +15,10 @@ class AtaqueController extends Controller
             "navegador" => $agent->browser(),
             "plataforma" => $agent->platform(),
             "localizacao" => "Não definido",
-            "id_usuario" => 1,
+            "id_usuario" => $usuario->id,
         ];
         $ataque = Ataque::create($dados_ataque);
-        return response()->json($ataque);
+        return $ataque;
+        //return response()->json($ataque);
     }
 }

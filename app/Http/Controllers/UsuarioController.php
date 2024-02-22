@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\AtaqueController;
 
 class UsuarioController extends Controller
 {
@@ -46,7 +47,7 @@ class UsuarioController extends Controller
         if ($existencia_usuario) {
             return view("usuario.pagina_inicial");
         } else {
-            return $this->criarSessaoContadoraTentativas();
+            return $this->criarSessaoContadoraTentativas($request);
         }
     }
 
@@ -67,7 +68,7 @@ class UsuarioController extends Controller
         setcookie("tentativa_login", 1, 60);
         $usuario = $this->verificarEmailUsuario($request);
         if($usuario){
-            echo "registrar ataque";
+            AtaqueController::registrarAtaque($usuario);
         }
         return redirect('/usuario/autenticacao')->with('notificacao', "Usuario não encontrado");
     }
