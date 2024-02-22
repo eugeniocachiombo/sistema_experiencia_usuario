@@ -33,30 +33,38 @@ class UsuarioController extends Controller
     public function autenticarUsuario(Request $request)
     {
         if (session("tentativa_login") != 1) {
-            $usuario = $this->verificarEmailUsuario();
-            $existencia_usuario = $this->verificarExistenciaUsuario($usuario); 
-            if ($existencia_usuario) {
-                return view("usuario.pagina_inicial");
-            } else {
-                $this->criarSessaoContadoraTentativas();
-                return redirect('/usuario/autenticacao')->with('notificacao', "Usuario não encontrado");
-            }
+            return $this->validarAutenticacaoUsuario($request);
         } else {
             return view("usuario.excessao_tentativas");
         }
     }
 
-    public function verificarEmailUsuario(){
+    public function validarAutenticacaoUsuario(Request $request)
+    {
+        $usuario = $this->verificarEmailUsuario($request);
+        $existencia_usuario = $this->verificarExistenciaUsuario($usuario, $request);
+        if ($existencia_usuario) {
+            return view("usuario.pagina_inicial");
+        } else {
+            return $this->criarSessaoContadoraTentativas();
+        }
+    }
+
+    public function verificarEmailUsuario(Request $request)
+    {
         return Usuario::where("email_usuario", "=", $request->email_usuario)->first();
     }
 
-    public function verificarExistenciaUsuario($usuario){
+    public function verificarExistenciaUsuario($usuario, Request $request)
+    {
         return $usuario && Hash::check($request->senha_usuario, $usuario->senha_usuario);
     }
 
-    public function criarSessaoContadoraTentativas(){
+    public function criarSessaoContadoraTentativas()
+    {
         $valor_sessao = session("tentativa_login");
         session()->put("tentativa_login", $valor_sessao + 1);
         setcookie("tentativa_login", 1, 60);
+        return redirect('/usuario/autenticacao')->with('notificacao', "Usuario não encontrado");
     }
 }
