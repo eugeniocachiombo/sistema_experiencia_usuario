@@ -1,13 +1,12 @@
 *{
     padding: 0;
     margin: 0;
-    font-family: verdana;
 }
 
 header{
     min-height: 20vh;
-    background-color: crimson;
-    color: yellow;
+    background-color: dodgerblue;
+    color: white;
 }
 
 main{
@@ -21,8 +20,8 @@ footer{
 }
 
 .button{
-    background-color: crimson;
-    color: yellow;
+    background-color: dodgerblue;
+    color: white;
 }
 
 .select{
@@ -38,5 +37,5 @@ footer{
 }
 
 input[type="text"]{
-    color: crimson;
+    color: dodgerblue;
 }
