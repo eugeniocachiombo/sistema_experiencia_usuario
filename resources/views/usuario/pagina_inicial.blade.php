@@ -11,6 +11,15 @@
             <div class="col d-flex justify-content-center">
                 <p><b>Sessão inciada</b></p>
             </div>
+            <div class="col">
+                <b>Usuario:</b> {{ session("nome_usuario") }}  <br>
+                <b>Gênero:</b> @if (session("genero_usuario") == "M")
+                    Masculino
+                @else
+                    Femenino
+                @endif <br>
+                <b>Email:</b> {{ session("email_usuario") }} <br>
+            </div>
         </div>
     </div>
 </main>

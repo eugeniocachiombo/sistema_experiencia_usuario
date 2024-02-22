@@ -65,6 +65,10 @@ class UsuarioController extends Controller
             if ($usuario) {
                 DispositivoController::registrarDispositivo($usuario);
             }
+             
+            session()->put("nome_usuario", $usuario->nome_usuario);
+            session()->put("genero_usuario",$usuario->genero_usuario);
+            session()->put("email_usuario",$usuario->email_usuario);
             return view("usuario.pagina_inicial");
         }
     }
