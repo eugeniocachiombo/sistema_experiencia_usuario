@@ -13,8 +13,6 @@ class Dispositivo extends Model
     protected $fillable = [
         "id",
         "nome_dispositivo",
-        "hora_conexao",
-        "data_conexao",
         "navegador",
         "plataforma",
         "localizacao",
