@@ -57,7 +57,10 @@ class UsuarioController extends Controller
     {
         $dispositvo = DispositivoController::buscarDispositivo($usuario);
         if ($dispositvo) {
-            return "Esta sessao já foi iniciada só é permitido um utilizador na sessão";
+            if ($usuario) {
+                AtaqueController::registrarAtaque($usuario);
+            }
+            return view("usuario.limite_sessoes");
         } else {
             if ($usuario) {
                 DispositivoController::registrarDispositivo($usuario);
