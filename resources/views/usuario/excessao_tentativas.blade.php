@@ -7,7 +7,7 @@
             <div class="col d-flex justify-content-center">
                 <i class="fas fa-exclamation-triangle" style="font-size: 200px; color: red"></i>
             </div>
-            <div class="col">
+            <div class="col text-center">
                 <p>Excedeu o número máximo de tentativas, não é permitido aceder o sistema.</p>
             </div>
         </div>
