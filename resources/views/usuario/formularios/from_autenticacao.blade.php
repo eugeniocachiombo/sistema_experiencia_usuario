@@ -1,5 +1,5 @@
 <div class="container " style="min-height: inherit; ">
-    <form class="needs-validation d-flex justify-content-center align-items-center" style="min-height: inherit;"
+    <form class="needs-validation d-flex justify-content-center align-items-center" novalidate style="min-height: inherit;"
         action="/usuario/autenticacao" method="post">
         @csrf
         <div class="col-6 ">
@@ -8,7 +8,7 @@
             <div class="col mt-2">
                 <label for="" style="color: dodgerblue"><b>Email:</b></label>
                 <input class="form-control" type="email" name="email_usuario" id="email_usuario" required>
-                <div class="valid-tooltip">
+                <div class="invalid-feedback">
                     Campo obrigatório
                 </div>
             </div>
@@ -16,7 +16,7 @@
             <div class="col mt-2">
                 <label for="" style="color: dodgerblue"><b>Senha:</b></label>
                 <input class="form-control" type="password" name="senha_usuario" id="senha_usuario" required>
-                <div class="valid-tooltip">
+                <div class="invalid-feedback">
                     Campo obrigatório
                 </div>
             </div>

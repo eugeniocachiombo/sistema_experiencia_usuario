@@ -1,5 +1,5 @@
 <div class="container d-flex justify-content-center align-items-center" style=" ">
-    <form class="needs-validation p-4" style="min-height: inherit;" action="/usuario/cadastro" method="post">
+    <form class="needs-validation p-4" novalidate style="min-height: inherit;" action="/usuario/cadastro" method="post">
         @csrf
         <h1>Cadastrar</h1>
         <hr>
@@ -7,7 +7,7 @@
             <div class="col-8 col-md-6">
                 <label for="" style="color: dodgerblue"><b>Nome:</b></label>
                 <input class="form-control" type="text" name="nome_usuario" id="nome_usuario" required="">
-                <div class="valid-tooltip">
+                <div class="invalid-feedback">
                     Campo obrigatório
                 </div>
             </div>
@@ -19,7 +19,7 @@
                     <option value="M">Masculino</option>
                     <option value="F">Femenino</option>
                 </select>
-                <div class="valid-tooltip">
+                <div class="invalid-feedback">
                     Campo obrigatório
                 </div>
             </div>
@@ -27,7 +27,7 @@
             <div class="col-8 col-md-6">
                 <label for="" style="color: dodgerblue"><b>Email:</b></label>
                 <input class="form-control" type="email" name="email_usuario" id="email_usuario" required>
-                <div class="valid-tooltip">
+                <div class="invalid-feedback">
                     Campo obrigatório
                 </div>
             </div>
@@ -35,7 +35,7 @@
             <div class="col-8 col-md-6">
                 <label for="" style="color: dodgerblue"><b>Senha:</b></label>
                 <input class="form-control" type="password" name="senha_usuario" id="senha_usuario" required>
-                <div class="valid-tooltip">
+                <div class="invalid-feedback">
                     Campo obrigatório
                 </div>
             </div>
