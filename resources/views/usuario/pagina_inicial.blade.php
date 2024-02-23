@@ -1,4 +1,5 @@
-<title>Página Inicial</title>
+<title>
+    Página Inicial</title>
 @include('usuario.inclusao.cabecalho')
 @include('usuario.inclusao.navbar_usuario_logado')
 
@@ -12,17 +13,22 @@
                 <p><b>Sessão inciada</b></p>
             </div>
             <div class="col">
-                <b>Usuario:</b> {{ session("nome_usuario") }}  <br>
-                <b>Gênero:</b> @if (session("genero_usuario") == "M")
+                <b>Usuario:</b> {{ session('nome_usuario') }} <br>
+                <b>Gênero:</b>
+                @if (session('genero_usuario') == 'M')
                     Masculino
                 @else
                     Femenino
                 @endif <br>
-                <b>Email:</b> {{ session("email_usuario") }} <br>
-                <b>Total de ataques: </b> <span style="color: red">{{ session("total_ataques") }}</span> <br>
-                <b>Dispositivo: </b>  <span style="color: green">{{session("dispositivo_query")}}</span> <br>
-                <b>Navegador: </b> <span style="color: dodgerblue">{{session("navegador_query")}}</span> <br>
-                <b>Plataforma: </b> <span style="color: redodgerblued">{{session("plataforma_query")}}</span> <br>
+                <b>Email:</b> {{ session('email_usuario') }} <br>
+                <b>Total de ataques: </b> <span style="color: red">
+                    @isset($total_ataques)
+                        {{ $total_ataques }}
+                    @endisset
+                </span> <br>
+                <b>Dispositivo: </b> <span style="color: green">{{ session('dispositivo_query') }}</span> <br>
+                <b>Navegador: </b> <span style="color: dodgerblue">{{ session('navegador_query') }}</span> <br>
+                <b>Plataforma: </b> <span style="color: redodgerblued">{{ session('plataforma_query') }}</span> <br>
             </div>
             <div class="col">
                 <form action="/usuario/terminar_sessao" method="get">

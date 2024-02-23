@@ -71,13 +71,13 @@ class UsuarioController extends Controller
     {
         $dispositvo = DispositivoController::buscarDispositivo($usuario);
         if ($dispositvo) {
-            return compararDadosBDPorDisposivoActual($dispositvo, $usuario);
+            return $this->compararDadosBDPorDisposivoActual($usuario);
         } else {
             return $this->setarSessoesECookieIrPaginaInicial($usuario);
         }
     }
 
-    public function compararDadosBDPorDisposivoActual($dispositvo, $usuario)
+    public function compararDadosBDPorDisposivoActual($usuario)
     {
         $agent = new Agent();
         $nome_dispositivo = $agent->device();
@@ -102,8 +102,6 @@ class UsuarioController extends Controller
         $se_usuario_igual = $id_usuario_actual == $id_usuario_query;
 
         if ($se_dispositivo_igual && $se_navegador_igual && $se_plataforma_igual && $se_usuario_igual) {
-            $ataque = AtaqueController::buscarAtaque($usuario);
-            session()->put("total_ataques", $ataque);
 
             session()->put("id_usuario", $usuario->id);
             session()->put("nome_usuario", $usuario->nome_usuario);
@@ -115,7 +113,9 @@ class UsuarioController extends Controller
             session()->put("navegador_query", $navegador_query);
             session()->put("plataforma_query", $plataforma_query);
             setcookie("usuario_logado", "usuario_logado", 120);
-            return view("usuario.pagina_inicial");
+
+            $total_ataques = AtaqueController::buscarTotalAtaque($usuario);
+            return view("usuario.pagina_inicial", compact("total_ataques"));
         } else {
             AtaqueController::registrarAtaque($usuario);
             return view("usuario.limite_sessoes");
@@ -140,17 +140,15 @@ class UsuarioController extends Controller
         session()->put("dispositivo_query", $dispositivo_actual);
         session()->put("navegador_query", $navegador_actual);
         session()->put("plataforma_query", $plataforma_actual);
-
-        $ataque = AtaqueController::buscarAtaque($usuario);
-        session()->put("total_ataques", $ataque);
-
+        
         session()->put("id_usuario", $usuario->id);
         session()->put("nome_usuario", $usuario->nome_usuario);
         session()->put("genero_usuario", $usuario->genero_usuario);
         session()->put("email_usuario", $usuario->email_usuario);
 
         setcookie("usuario_logado", "usuario_logado", 120);
-        return view("usuario.pagina_inicial");
+        $total_ataques = AtaqueController::buscarTotalAtaque($usuario);
+        return view("usuario.pagina_inicial", compact("total_ataques"));
     }
 
     public function criarSessaoContadoraTentativas(Request $request)

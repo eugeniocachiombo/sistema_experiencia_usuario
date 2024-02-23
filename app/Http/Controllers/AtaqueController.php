@@ -25,7 +25,7 @@ class AtaqueController extends Controller
         return $ataque;
     }
 
-    public function buscarAtaque($usuario)
+    public function buscarTotalAtaque($usuario)
     {
         $ataque = Ataque::where("id_usuario", "=", $usuario->id)->count();
         return $ataque;
