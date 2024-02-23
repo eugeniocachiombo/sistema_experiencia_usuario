@@ -30,4 +30,10 @@ class AtaqueController extends Controller
         $ataque = Ataque::where("id_usuario", "=", $usuario->id)->count();
         return $ataque;
     }
+
+    public function ataqueView()
+    {   
+        $ataques = Ataque::where("id_usuario", "=", session("id_usuario"))->get();
+        return view("usuario.ataques", compact("ataques"));
+    }
 }

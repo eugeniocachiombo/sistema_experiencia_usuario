@@ -8,7 +8,7 @@
                 <i class="fas fa-exclamation-triangle" style="font-size: 200px; color: red"></i>
             </div>
             <div class="col">
-                <p>Excedeu o número máximo de tentativas, não é permitido acessar o sistema mais de 2 vezes</p>
+                <p>Excedeu o número máximo de tentativas, não é permitido aceder o sistema.</p>
             </div>
         </div>
     </div>

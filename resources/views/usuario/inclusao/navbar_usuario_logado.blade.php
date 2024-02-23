@@ -10,10 +10,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Perfil</a>
+                    <a class="nav-link" href="/">Perfil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Arquivos</a>
+                    <a class="nav-link" href="/usuario/ataques">Ataques</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Ficheiros</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Sobre</a>

@@ -30,8 +30,12 @@ class UsuarioController extends Controller
     }
 
     public function autenticarView(Request $request)
-    {
-        if(session("id_usuario")){
+    {   
+        if(session("bloqueio_sistema") || session("tentativa_login") == 3){
+            session()->put("bloqueio_sistema", true);
+            return view("usuario.excessao_tentativas");
+        } 
+        else if(session("id_usuario")){
             return view("usuario.pagina_inicial");
         }else{
             return view("usuario.autenticacao");
@@ -40,11 +44,7 @@ class UsuarioController extends Controller
 
     public function autenticarUsuario(Request $request)
     {
-        if (session("tentativa_login") != 2) {
-            return $this->validarAutenticacaoUsuario($request);
-        } else {
-            return view("usuario.excessao_tentativas");
-        }
+        return $this->validarAutenticacaoUsuario($request);
     }
 
     public function validarAutenticacaoUsuario(Request $request)
@@ -56,6 +56,16 @@ class UsuarioController extends Controller
         } else {
             return $this->criarSessaoContadoraTentativas($request);
         }
+    }
+
+    public function verificarEmailUsuario(Request $request)
+    {
+        return Usuario::where("email_usuario", "=", $request->email_usuario)->first();
+    }
+
+    public function verificarExistenciaUsuario($usuario, Request $request)
+    {
+        return $usuario && Hash::check($request->senha_usuario, $usuario->senha_usuario);
     }
 
     public function verficarDispositivo($usuario)
@@ -80,12 +90,12 @@ class UsuarioController extends Controller
             $plataforma_query = $dispositvo->plataforma;
             $id_usuario_query = $dispositvo->id_usuario;
 
-            if (
-                $dispositivo_actual == $dispositivo_query
-                && $navegador_actual == $navegador_query
-                && $plataforma_actual == $plataforma_query
-                && $id_usuario_actual == $id_usuario_query) {
+            $se_dispositivo_igual = $dispositivo_actual == $dispositivo_query;
+            $se_navegador_igual = $navegador_actual == $navegador_query;
+            $se_plataforma_igual = $plataforma_actual == $plataforma_query;
+            $se_usuario_igual = $id_usuario_actual == $id_usuario_query;
 
+            if ($se_dispositivo_igual && $se_navegador_igual && $se_plataforma_igual && $se_usuario_igual) {
                 $ataque = AtaqueController::buscarAtaque($usuario);
                 session()->put("total_ataques", $ataque);
 
@@ -134,16 +144,6 @@ class UsuarioController extends Controller
             setcookie("usuario_logado", "usuario_logado", 120);
             return view("usuario.pagina_inicial");
         }
-    }
-
-    public function verificarEmailUsuario(Request $request)
-    {
-        return Usuario::where("email_usuario", "=", $request->email_usuario)->first();
-    }
-
-    public function verificarExistenciaUsuario($usuario, Request $request)
-    {
-        return $usuario && Hash::check($request->senha_usuario, $usuario->senha_usuario);
     }
 
     public function criarSessaoContadoraTentativas(Request $request)

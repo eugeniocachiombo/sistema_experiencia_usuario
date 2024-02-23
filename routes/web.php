@@ -11,6 +11,7 @@ Route::post('/usuario/cadastro', [UsuarioController::class, "cadastrarUsuario"])
 Route::get('/usuario/autenticacao', [UsuarioController::class, "autenticarView"]);
 Route::post('/usuario/autenticacao', [UsuarioController::class, "autenticarUsuario"]);
 Route::get('/usuario/terminar_sessao', [UsuarioController::class, "terminarSessao"]);
+Route::get('/usuario/ataques', [AtaqueController::class, "ataqueView"]);
 
 
 
