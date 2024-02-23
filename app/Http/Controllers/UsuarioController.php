@@ -31,7 +31,7 @@ class UsuarioController extends Controller
 
     public function autenticarView(Request $request)
     {
-        if (session("bloqueio_sistema") || session("tentativa_login") == 3) {
+        if (session("bloqueio_sistema") || session("tentativa_login") >= 2) {
             session()->put("bloqueio_sistema", true);
             return view("usuario.excessao_tentativas");
         } else if (session("id_usuario")) {
