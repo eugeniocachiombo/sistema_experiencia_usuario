@@ -40,7 +40,7 @@ class UsuarioController extends Controller
 
     public function autenticarUsuario(Request $request)
     {
-        if (session("tentativa_login") != 1) {
+        if (session("tentativa_login") != 2) {
             return $this->validarAutenticacaoUsuario($request);
         } else {
             return view("usuario.excessao_tentativas");
@@ -85,7 +85,7 @@ class UsuarioController extends Controller
                 && $navegador_actual == $navegador_query
                 && $plataforma_actual == $plataforma_query
                 && $id_usuario_actual == $id_usuario_query) {
-                    
+
                 $ataque = AtaqueController::buscarAtaque($usuario);
                 session()->put("total_ataques", $ataque);
 
