@@ -19,7 +19,7 @@
                     Femenino
                 @endif <br>
                 <b>Email:</b> {{ session("email_usuario") }} <br>
-                <b>Total de ataques: </b> <span style="color: red">1</span> <br>
+                <b>Total de ataques: </b> <span style="color: red">{{ session("total_ataques") }}</span> <br>
                 <b>Dispositivo: </b>  <span style="color: green">{{session("dispositivo_query")}}</span> <br>
                 <b>Navegador: </b> <span style="color: dodgerblue">{{session("navegador_query")}}</span> <br>
                 <b>Plataforma: </b> <span style="color: redodgerblued">{{session("plataforma_query")}}</span> <br>

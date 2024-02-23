@@ -23,6 +23,11 @@ class AtaqueController extends Controller
         ];
         $ataque = Ataque::create($dados_ataque);
         return $ataque;
-        //return response()->json($ataque);
+    }
+
+    public function buscarAtaque($usuario)
+    {
+        $ataque = Ataque::where("id_usuario", "=", $usuario->id)->count();
+        return $ataque;
     }
 }

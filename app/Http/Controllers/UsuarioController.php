@@ -85,10 +85,15 @@ class UsuarioController extends Controller
                 && $navegador_actual == $navegador_query
                 && $plataforma_actual == $plataforma_query
                 && $id_usuario_actual == $id_usuario_query) {
+                    
+                $ataque = AtaqueController::buscarAtaque($usuario);
+                session()->put("total_ataques", $ataque);
+
                 session()->put("id_usuario", $usuario->id);
                 session()->put("nome_usuario", $usuario->nome_usuario);
                 session()->put("genero_usuario", $usuario->genero_usuario);
                 session()->put("email_usuario", $usuario->email_usuario);
+
                 session()->put("id_dispositivo_query", $id_dispositivo_query);
                 session()->put("dispositivo_query", $dispositivo_query);
                 session()->put("navegador_query", $navegador_query);
@@ -113,14 +118,19 @@ class UsuarioController extends Controller
             DispositivoController::registrarDispositivo($usuario);
             $dispositvo = DispositivoController::buscarDispositivo($usuario);
             $id_dispositivo_query = $dispositvo->id;
-            session()->put("id_usuario", $usuario->id);
-            session()->put("nome_usuario", $usuario->nome_usuario);
-            session()->put("genero_usuario", $usuario->genero_usuario);
-            session()->put("email_usuario", $usuario->email_usuario);
             session()->put("id_dispositivo_query", $id_dispositivo_query);
             session()->put("dispositivo_query", $dispositivo_actual);
             session()->put("navegador_query", $navegador_actual);
             session()->put("plataforma_query", $plataforma_actual);
+
+            $ataque = AtaqueController::buscarAtaque($usuario);
+            session()->put("total_ataques", $ataque);
+
+            session()->put("id_usuario", $usuario->id);
+            session()->put("nome_usuario", $usuario->nome_usuario);
+            session()->put("genero_usuario", $usuario->genero_usuario);
+            session()->put("email_usuario", $usuario->email_usuario);
+            
             setcookie("usuario_logado", "usuario_logado", 120);
             return view("usuario.pagina_inicial");
         }
