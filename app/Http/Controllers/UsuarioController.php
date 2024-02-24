@@ -112,10 +112,14 @@ class UsuarioController extends Controller
             session()->put("dispositivo_query", $dispositivo_query);
             session()->put("navegador_query", $navegador_query);
             session()->put("plataforma_query", $plataforma_query);
+
             setcookie("usuario_logado", "usuario_logado", 120);
             return view("usuario.pagina_inicial");
         } else {
             AtaqueController::registrarAtaque($usuario);
+            Session::forget("usuario_logado");
+            Session::forget("tentativa_login");
+            Session::flush();
             return view("usuario.limite_sessoes");
         }
     }
@@ -138,7 +142,7 @@ class UsuarioController extends Controller
         session()->put("dispositivo_query", $dispositivo_actual);
         session()->put("navegador_query", $navegador_actual);
         session()->put("plataforma_query", $plataforma_actual);
-        
+
         session()->put("id_usuario", $usuario->id);
         session()->put("nome_usuario", $usuario->nome_usuario);
         session()->put("genero_usuario", $usuario->genero_usuario);
