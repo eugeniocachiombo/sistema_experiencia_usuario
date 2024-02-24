@@ -8,7 +8,7 @@
                 <i class="fas fa-ban" style="font-size: 200px; color: red"></i>
             </div>
             <div class="col">
-                <p>Já existe um usuário logado com estes dados no sistema</p>
+                <p>Já existe um usuário logado com esta conta no sistema</p>
             </div>
         </div>
     </div>
