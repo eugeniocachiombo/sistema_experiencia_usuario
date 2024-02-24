@@ -48,23 +48,26 @@ class UsuarioController extends Controller
 
     public function validarAutenticacaoUsuario(Request $request)
     {
-        $usuario = $this->verificarEmailUsuario($request);
-        $usuario_encontrado = $this->verificarExistenciaUsuario($usuario, $request);
+        $usuario_email = $this->verificarEmailDigitado($request);
+        $usuario_encontrado = $this->verificarExistenciaUsuario($usuario_email, $request);
         if ($usuario_encontrado) {
-            return $this->verficarDispositivo($usuario);
+            return $this->verficarDispositivo($usuario_email);
         } else {
-            return $this->criarSessaoContadoraTentativas($request);
+            return $this->criarSessaoContadoraTentativas($request); 
         }
     }
 
-    public function verificarEmailUsuario(Request $request)
+    public function verificarEmailDigitado(Request $request)
     {
         return Usuario::where("email_usuario", "=", $request->email_usuario)->first();
     }
 
     public function verificarExistenciaUsuario($usuario, Request $request)
     {
-        return $usuario && Hash::check($request->senha_usuario, $usuario->senha_usuario);
+        $senha_usuario_email = $usuario->senha_usuario;
+        $senha_digitada = $request->senha_usuario;
+        $senha_verificada = Hash::check($senha_digitada, $senha_usuario_email);
+        return $usuario && $senha_verificada;
     }
 
     public function verficarDispositivo($usuario)
@@ -73,7 +76,7 @@ class UsuarioController extends Controller
         if ($dispositvo) {
             return $this->compararDadosBDPorDisposivoActual($usuario);
         } else {
-            return $this->setarSessoesECookieIrPaginaInicial($usuario);
+            return $this->setarSessoesECookieIrPaginaInicial($usuario); 
         }
     }
 
@@ -157,7 +160,7 @@ class UsuarioController extends Controller
         $valor_sessao = session("tentativa_login");
         session()->put("tentativa_login", $valor_sessao + 1);
         setcookie("tentativa_login", 1, 60);
-        $usuario = $this->verificarEmailUsuario($request);
+        $usuario = $this->verificarEmailDigitado($request);
         if ($usuario) {
             AtaqueController::registrarAtaque($usuario);
         }
