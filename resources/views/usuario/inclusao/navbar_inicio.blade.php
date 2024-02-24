@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Página Inicial</a>
+                    <a class="nav-link active" aria-current="page" href="/">Página Inicial</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/usuario/cadastro">Cadastrar</a>
