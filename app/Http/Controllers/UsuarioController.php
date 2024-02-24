@@ -113,9 +113,7 @@ class UsuarioController extends Controller
             session()->put("navegador_query", $navegador_query);
             session()->put("plataforma_query", $plataforma_query);
             setcookie("usuario_logado", "usuario_logado", 120);
-
-            $total_ataques = AtaqueController::buscarTotalAtaque($usuario);
-            return view("usuario.pagina_inicial", compact("total_ataques"));
+            return view("usuario.pagina_inicial");
         } else {
             AtaqueController::registrarAtaque($usuario);
             return view("usuario.limite_sessoes");
@@ -147,8 +145,7 @@ class UsuarioController extends Controller
         session()->put("email_usuario", $usuario->email_usuario);
 
         setcookie("usuario_logado", "usuario_logado", 120);
-        $total_ataques = AtaqueController::buscarTotalAtaque($usuario);
-        return view("usuario.pagina_inicial", compact("total_ataques"));
+        return view("usuario.pagina_inicial");
     }
 
     public function criarSessaoContadoraTentativas(Request $request)

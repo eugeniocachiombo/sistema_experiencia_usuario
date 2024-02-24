@@ -16,6 +16,7 @@
                 <b>Data: </b> <span style="color: redodgerblued">{{ $item->created_at }}</span> <br>
                 <hr>
             @endforeach
+            {{ $ataques->links() }}
         </div>
     </div>
 </main>

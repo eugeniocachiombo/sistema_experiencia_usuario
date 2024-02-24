@@ -1,5 +1,4 @@
-<title>
-    Página Inicial</title>
+<title>Página Inicial</title>
 @include('usuario.inclusao.cabecalho')
 @include('usuario.inclusao.navbar_usuario_logado')
 
@@ -22,9 +21,8 @@
                 @endif <br>
                 <b>Email:</b> {{ session('email_usuario') }} <br>
                 <b>Total de ataques: </b> <span style="color: red">
-                    @isset($total_ataques)
-                        {{ $total_ataques }}
-                    @endisset
+                    <?php $total_ataques = App\Http\Controllers\AtaqueController::buscarTotalAtaque(session('id_usuario')); ?>
+                    <?php echo $total_ataques; ?>
                 </span> <br>
                 <b>Dispositivo: </b> <span style="color: green">{{ session('dispositivo_query') }}</span> <br>
                 <b>Navegador: </b> <span style="color: dodgerblue">{{ session('navegador_query') }}</span> <br>

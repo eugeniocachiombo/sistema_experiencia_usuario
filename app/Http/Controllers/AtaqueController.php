@@ -25,15 +25,15 @@ class AtaqueController extends Controller
         return $ataque;
     }
 
-    public function buscarTotalAtaque($usuario)
+    public function buscarTotalAtaque($id_usuario)
     {
-        $ataque = Ataque::where("id_usuario", "=", $usuario->id)->count();
+        $ataque = Ataque::where("id_usuario", $id_usuario)->count();
         return $ataque;
     }
 
     public function ataqueView()
     {   
-        $ataques = Ataque::where("id_usuario", "=", session("id_usuario"))->get();
+        $ataques = Ataque::where("id_usuario", "=", session("id_usuario"))->paginate(5);
         return view("usuario.ataques", compact("ataques"));
     }
 }
