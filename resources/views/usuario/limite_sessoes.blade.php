@@ -5,7 +5,7 @@
     <div class="container d-flex justify-content-center align-items-center" style="min-height: inherit">
         <div class="">
             <div class="col d-flex justify-content-center">
-                <i class="fas fa-shield-alt" style="font-size: 200px; color: green"></i>
+                <i class="fas fa-ban" style="font-size: 200px; color: red"></i>
             </div>
             <div class="col">
                 <p>Já existe um usuário logado com estes dados no sistema</p>
